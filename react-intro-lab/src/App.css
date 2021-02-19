@@ -1,3 +1,26 @@
+.container{
+  text-align: center;
+}
+#lecture{
+  color: #282c34;
+  font-weight: 600;
+}
+#props{
+ font-style: italic;
+}
+.card {
+  display: inline-block;
+  vertical-align: top;
+  font-family: system-ui;
+  background: #f06d06;
+  color: white;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  padding: 10px;
+}
+
 .App {
   text-align: center;
 }
