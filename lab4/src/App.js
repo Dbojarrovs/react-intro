@@ -27,37 +27,29 @@ function App() {
       showDesc: true
     })
   } 
-//description - readmore State
-  let description = null;
 
-  if (readmoreState.showDesc){
-    description = (
-      <div className="description">
-        
-        <h2>{readmoreState.title}</h2>
-        <p>{readmoreState.description}</p>
-        {subjectsState.subjects.map((description, index) => {
-          return <Description 
-           
-            hide={() => hideCardHandler(index)}
-           
-          >
-         
-          </Description>
-        })}
-      </div>
-    );
-  }
 
   const hideDescHandler = (subjectIndex) => {
-      const subjects = [...subjectsState.subjects.description];
-      subjects.splice(subjectIndex, 1);
       setReadmoreState({
-        subjects: description,
-        showSubjects: subjectsState.showSubjects
+        description: readmoreState.description,
+        title: readmoreState.title,
+        showDesc: false
       });
     } 
 
+//description - readmore State
+let description = null;
+
+if (readmoreState.showDesc){
+  description = (
+    <div className="description">
+      
+      <h2>{readmoreState.title}</h2>
+      <p>{readmoreState.description}</p>
+      <span onClick={hideDescHandler} className="hide">Hide description</span>
+    </div>
+  );
+}
 
 //show/hide button
   const toggleSubjectsHandler = () => {
