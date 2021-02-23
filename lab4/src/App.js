@@ -38,9 +38,10 @@ function App() {
     );
   }
 
-
+  
   const toggleSubjectsHandler = () => {
     const doesShow = subjectsState.showSubjects;
+    
     setSubjectsState({
       subjects: subjectsState.subjects,
       showSubjects: !doesShow
@@ -56,6 +57,7 @@ function App() {
     padding: '8px',
     cursor: 'pointer',
   };
+  
   
   const hideCardHandler = (subjectIndex) => {
     const subjects = [...subjectsState.subjects];
@@ -93,7 +95,7 @@ function App() {
   return (
     <div className="container">
       <h1>Hi, I'm a React App</h1>
-      <button onClick={toggleSubjectsHandler} style={style}>Show Subjects</button>      <br />
+      <button onClick={toggleSubjectsHandler} style={style}>Show Subjects</button> 
      <br />
      {subjects} 
      {description}
