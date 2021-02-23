@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
 import Subject from './components/subject';
-import Description from './components/description';
 //subjects State for return
 function App() {
   const [ subjectsState, setSubjectsState ] = useState({
@@ -38,19 +37,18 @@ function App() {
     } 
 
 //description - readmore State
-let description = null;
+  let description = null;
 
-if (readmoreState.showDesc){
-  description = (
-    <div className="description">
-      
-      <h2>{readmoreState.title}</h2>
-      <p>{readmoreState.description}</p>
-      <span onClick={hideDescHandler} className="hide">Hide description</span>
-    </div>
-  );
-}
-
+  if (readmoreState.showDesc){
+    description = (
+      <div className="description">
+        
+        <h2>{readmoreState.title}</h2>
+        <p>{readmoreState.description}</p>
+        <span onClick={hideDescHandler} className="hide">Hide description</span>
+      </div>
+    );
+  }
 //show/hide button
   const toggleSubjectsHandler = () => {
     const doesShow = subjectsState.showSubjects;
