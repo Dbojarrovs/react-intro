@@ -54,7 +54,7 @@ function App() {
     const doesShow = subjectsState.showSubjects;
     
     setSubjectsState({
-      subjects: subjectsState.subjects,
+       subjects: subjectsState.subjects,
       showSubjects: !doesShow
     });
   console.log(subjectsState.showSubjects);
@@ -99,6 +99,7 @@ function App() {
       </div>
     );
   }
+
 
 
 
