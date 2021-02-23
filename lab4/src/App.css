@@ -1,7 +1,7 @@
 .container{
   text-align: center;
 }
-#lecture{
+#lecturer{
   color: #282c34;
   font-weight: 600;
 }
@@ -19,6 +19,28 @@
   height: 250px;
   margin: 10px;
   padding: 10px;
+  position: relative;
+}
+
+.hide{
+  color: white;
+  font-size: smaller;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
+.description {
+  display: inline-block;
+  font-family: system-ui;
+  background: grey;
+  color: white;
+  text-align: justify;
+  width: 830px;
+  height: 250px;
+  margin: 10px;
+  padding: 10px;
+  position: relative;
 }
 
 .App {
