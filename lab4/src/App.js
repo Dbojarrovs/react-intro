@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import Subject from './components/subject';
-
+import Description from './components/description';
+//subjects State for return
 function App() {
   const [ subjectsState, setSubjectsState ] = useState({
     subjects: [
@@ -12,7 +13,7 @@ function App() {
     showSubjects: false
   });
 
-
+//readmore State
   const [ readmoreState, setReadmoreState ] = useState({
     title: "",
     description: "",
@@ -26,19 +27,39 @@ function App() {
       showDesc: true
     })
   } 
-
+//description - readmore State
   let description = null;
 
   if (readmoreState.showDesc){
     description = (
       <div className="description">
+        
         <h2>{readmoreState.title}</h2>
         <p>{readmoreState.description}</p>
+        {subjectsState.subjects.map((description, index) => {
+          return <Description 
+           
+            hide={() => hideCardHandler(index)}
+           
+          >
+         
+          </Description>
+        })}
       </div>
     );
   }
 
-  
+  const hideDescHandler = (subjectIndex) => {
+      const subjects = [...subjectsState.subjects.description];
+      subjects.splice(subjectIndex, 1);
+      setReadmoreState({
+        subjects: description,
+        showSubjects: subjectsState.showSubjects
+      });
+    } 
+
+
+//show/hide button
   const toggleSubjectsHandler = () => {
     const doesShow = subjectsState.showSubjects;
     
@@ -58,7 +79,7 @@ function App() {
     cursor: 'pointer',
   };
   
-  
+  //Hide card 
   const hideCardHandler = (subjectIndex) => {
     const subjects = [...subjectsState.subjects];
     subjects.splice(subjectIndex, 1);
@@ -67,7 +88,7 @@ function App() {
       showSubjects: subjectsState.showSubjects
     });
   } 
-
+// if statement for cards 
   let subjects=null; 
 
   if (subjectsState.showSubjects) {
