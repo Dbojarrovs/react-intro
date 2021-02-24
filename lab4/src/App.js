@@ -23,14 +23,7 @@ function App() {
     cursor: 'pointer'
   };
 
-  const descriptionCardStyle = {
-    color: 'black',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer'
-  };
-
+  
 //readmore State
   const [ readmoreState, setReadmoreState ] = useState({
     title: "",
@@ -76,7 +69,7 @@ function App() {
        subjects: subjectsState.subjects,
       showSubjects: !doesShow,
       btnBackgroundColor: subjectsState.btnBackgroundColor === 'green' ? 'red' : 'green',
-    btnText: subjectsState.btnText === 'Show subjects' ? 'Hide subjects' : 'Show subjects'
+      btnText: subjectsState.btnText === 'Show subjects' ? 'Hide subjects' : 'Show subjects'
     });
     
   }
