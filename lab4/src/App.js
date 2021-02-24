@@ -9,8 +9,27 @@ function App() {
       { id: 2, title: "Digital Graphic Design", year: 3, lecturer: "Sinead O' Riordan", description: "This module introduces the student to vector-based illustration software. Students will produce high-quality artwork for both screen and print, and will gain an understanding of the limitations of printing methods for various print media. This module also introduces the student to industry-standard publishing applications for interactive PDF documents, digital magazines, and EPUBs."  },
       { id: 3, title: "NoSQL Databases", year: 3, lecturer: "T.J. McDonald", description: "This module will introduce the student to the principles and practice of designing database solutions for large volumes of either structured or unstructured data. The student will gain competence in determining the suitability of a schemaless database or a data warehouse. The student will be introduced to the concepts of data persistence, consistency and distribution in the NoSQL database context. They will gain experience in the design and implementation of a NoSQL database system for unstructured data. The module will also introduce them to the use of data warehouses for storage of large volumes of structured data." }
     ],
-    showSubjects: false
+    showSubjects: false,
+    btnBackgroundColor: 'green',
+    btnText: 'Show subjects'
   });
+
+  const subjectsStyle = {
+    backgroundColor: subjectsState.btnBackgroundColor,
+    color: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer'
+  };
+
+  const descriptionCardStyle = {
+    color: 'black',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer'
+  };
 
 //readmore State
   const [ readmoreState, setReadmoreState ] = useState({
@@ -55,19 +74,13 @@ function App() {
     
     setSubjectsState({
        subjects: subjectsState.subjects,
-      showSubjects: !doesShow
+      showSubjects: !doesShow,
+      btnBackgroundColor: subjectsState.btnBackgroundColor === 'green' ? 'red' : 'green',
+    btnText: subjectsState.btnText === 'Show subjects' ? 'Hide subjects' : 'Show subjects'
     });
-  console.log(subjectsState.showSubjects);
+    
   }
 
-  const style = {
-    backgroundColor: 'green',
-    color: 'white',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer',
-  };
   
   //Hide card 
   const hideCardHandler = (subjectIndex) => {
@@ -75,7 +88,9 @@ function App() {
     subjects.splice(subjectIndex, 1);
     setSubjectsState({
       subjects: subjects,
-      showSubjects: subjectsState.showSubjects
+      showSubjects: subjectsState.showSubjects,
+      btnBackgroundColor: 'red',
+      btnText: 'Hide subjects'
     });
   } 
 // if statement for cards 
@@ -107,7 +122,7 @@ function App() {
   return (
     <div className="container">
       <h1>Hi, I'm a React App</h1>
-      <button onClick={toggleSubjectsHandler} style={style}>Show Subjects</button> 
+      <button onClick={toggleSubjectsHandler} style={subjectsStyle}>{subjectsState.btnText}</button>
      <br />
      {subjects} 
      {description}
