@@ -108,10 +108,6 @@ function App() {
     );
   }
 
-
-
-
-  
   return (
     <div className="container">
       <h1>Hi, I'm a React App</h1>
