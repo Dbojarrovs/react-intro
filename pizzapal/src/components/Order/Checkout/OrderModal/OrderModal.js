@@ -17,7 +17,11 @@ const OrderModal = (props) => {
             <Modal.Header>Confirm your choices:</Modal.Header>
             <Modal.Content>
 
-              <OrderSummary />
+            <OrderSummary 
+    menu = {props.menu}
+    toppings = {props.toppings}
+    price = {props.price}
+  />
 
             </Modal.Content>
             <Modal.Actions>

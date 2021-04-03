@@ -4,7 +4,10 @@ import Menu from '../../components/Menu/Menu';
 import { Grid } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
 
+const orderToppings = [];
+
 const PizzaPal = (props) => {
+   
 
     const [menuState, setMenuState] = useState({
         toppings: [
@@ -25,15 +28,78 @@ const PizzaPal = (props) => {
           { id: 14, name: 'bbq', price: .75, image: 'images/toppings/bbq.jpg', alt: 'BBQ Sauce' },
           { id: 15, name: 'hot', price: .75, image: 'images/toppings/hot.jpg', alt: 'Hot Sauce' },
         ]
+
+        
       });
+
+      const [orderState, setOrderState] = useState({
+        totalPrice: 5, 
+        chosenToppings: []
+      });
+     
+      const addToppingHandler = (id) => {
+        const index = menuState.toppings.findIndex(topping => topping.id === id);
+      
+      
+        // Save the name and price of the chosen topping
+    const chosenTopping = {
+        id: menuState.toppings[index].id,
+        name: menuState.toppings[index].alt,
+        price: menuState.toppings[index].price
+      };
+
+      console.log(orderState);
+
+       // Add chosen topping object to updatedToppings array
+    orderToppings.push(chosenTopping);
+
+     // Calculate the new price
+     const newPrice = orderState.totalPrice + menuState.toppings[index].price;
+    
+    // Update the order state with the new price and updated toppings array
+    setOrderState({
+        totalPrice: newPrice,
+        chosenToppings: orderToppings
+      });
+    }
+
+    const removeToppingHandler = (id) => {
+        // Find topping with matching id from the orderState
+        const index = orderState.chosenToppings.findIndex(topping => topping.id === id);
+    
+        // Get the current price
+        let price = orderState.totalPrice; 
+    
+        // If topping was found, update the price and then remove it
+        if(index >= 0){
+          price = price - orderState.chosenToppings[index].price;
+          orderToppings.splice(index, 1);
+        }
+    
+        // Update order state with updated price and updated toppings array
+        setOrderState({
+          totalPrice: price,
+          chosenToppings: orderToppings
+        });
+      }
+
+      console.log(orderState);
 
   return (
     <Grid divided='vertically' stackable>
         <Grid.Row centered>
         <Menu menu={menuState.toppings} />
+        
         </Grid.Row>
        
-        <Order menu={menuState.toppings}/>
+        <Order 
+    menu={menuState.toppings}
+    toppingAdded={addToppingHandler}
+    toppingRemoved={removeToppingHandler}
+    chosenToppings={orderState.chosenToppings}
+    totalPrice={orderState.totalPrice}
+  />
+
         
   </Grid>
   )

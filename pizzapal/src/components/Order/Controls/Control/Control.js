@@ -7,12 +7,12 @@ const Control = (props) => {
          <Grid.Column mobile={4} computer={2} textAlign='center'>
     <p>{props.alt}</p>
     <Button.Group size='mini'>
-        <Button color='green' icon>
-            <Icon name='plus' />
-        </Button>
-        <Button color='red' icon>
-            <Icon name='minus' />
-        </Button>
+    <Button color='green' icon onClick={props.added}>
+      <Icon name='plus' />
+  </Button>
+  <Button color='red' icon onClick={props.removed}>
+      <Icon name='minus' />
+  </Button>
     </Button.Group>
 </Grid.Column>
     </div>

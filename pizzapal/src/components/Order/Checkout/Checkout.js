@@ -9,8 +9,16 @@ const Checkout = (props) => {
             <Header as='h2' textAlign='center' className='step'>
                 Step 2: Check out 
             </Header>
-            <OrderSummary />
-            <OrderModal />
+            <OrderSummary 
+    menu = {props.menu}
+    toppings = {props.toppings}
+    price = {props.price}
+  />
+  <OrderModal 
+    menu = {props.menu}
+    toppings = {props.toppings}
+    price = {props.price}
+  />
         </Grid.Column>
       )
 };
