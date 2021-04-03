@@ -12,10 +12,11 @@ const Order = (props) => {
     toppingAdded = {props.toppingAdded}
     toppingRemoved = {props.toppingRemoved}
   />
-         <Checkout 
-    menu = {props.menu}
+          <Checkout 
+    menu={props.menu}
     toppings={props.chosenToppings}
     price={props.totalPrice}
+    checkout={props.checkout}
   />
     </Grid.Row>
     </div>

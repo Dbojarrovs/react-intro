@@ -18,6 +18,7 @@ const Checkout = (props) => {
     menu = {props.menu}
     toppings = {props.toppings}
     price = {props.price}
+    checkout = {props.checkout}
   />
         </Grid.Column>
       )
