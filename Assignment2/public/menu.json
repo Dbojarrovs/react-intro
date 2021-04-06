@@ -1,0 +1,74 @@
+{
+	"toppings": [{
+			"id": 0,
+			"name": "cherry",
+			"price": 1.75,
+			"image": "images/smoothie/cherry.jpg",
+			"alt": "Cherry"
+		},
+		{
+			"id": 1,
+			"name": "apple",
+			"price": 0.75,
+			"image": "images/smotthie/apple.jpg",
+			"alt": "Apple"
+		},
+		{
+			"id": 2,
+			"name": "melon",
+			"price": 0.5,
+			"image": "images/toppings/melon.jpg",
+			"alt": "Melon"
+		},
+		{
+			"id": 3,
+			"name": "watermelon",
+			"price": 0.5,
+			"image": "images/toppings/watermelon.jpg",
+			"alt": "Watermelon"
+		},
+		{
+			"id": 4,
+			"name": "blueberry",
+			"price": 0.5,
+			"image": "images/toppings/blueberry.jpg",
+			"alt": "Blueberry"
+		},
+		{
+			"id": 5,
+			"name": "banana",
+			"price": 0.5,
+			"image": "images/toppings/banana.jpg",
+			"alt": "Banana"
+		},
+		{
+			"id": 6,
+			"name": "coconut",
+			"price": 0.5,
+			"image": "images/toppings/coconut.jpg",
+			"alt": "Coconut"
+		},
+		{
+			"id": 7,
+			"name": "kiwi",
+			"price": 0.5,
+			"image": "images/toppings/kiwi.jpg",
+			"alt": "Kiwi"
+		},
+		{
+			"id": 8,
+			"name": "orange",
+			"price": 0.5,
+			"image": "images/toppings/orange.jpg",
+			"alt": "Orange"
+		},
+		{
+			"id": 9,
+			"name": "strawberry",
+			"price": 0.5,
+			"image": "images/toppings/strawberry.jpg",
+			"alt": "Strawberry"
+		}
+		
+	]
+}
