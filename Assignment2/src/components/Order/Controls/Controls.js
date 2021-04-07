@@ -13,11 +13,10 @@ const Controls = (props) => {
             return <Control 
                 key={ingredients.id}
                 alt={ingredients.alt}
-                added={() => props.toppingAdded(ingredients.id)}
+                added={() => props.ingredientAdded(ingredients.id)}
             />
             })}
         </Grid>
-        
     </Grid.Column>
   )
 };

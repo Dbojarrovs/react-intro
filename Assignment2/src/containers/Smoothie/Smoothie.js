@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { Grid } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
 
+const orderIngredients = [];
 
 const Smoothie = (props) => {
 
@@ -24,13 +25,33 @@ const Smoothie = (props) => {
 
       const [orderState, setOrderState] = useState({
         totalPrice: 5, 
-        chosenToppings: []
+        chosenIngredients: []
       });
 
-      const addToppingHandler = (id) => {
-        console.log(id);
+      const addIngredientHandler = (id) => {
+        const index = menuState.ingredients.findIndex(ingredient => ingredient.id === id);
+    
+        // Save the name and price of the chosen topping
+        const chosenIngredient = {
+          id: menuState.ingredients[index].id,
+          name: menuState.ingredients[index].alt,
+          price: menuState.ingredients[index].price
+        };
+    
+        // Add chosen topping object to updatedToppings array
+        orderIngredients.push(chosenIngredient);
+    
+        // Calculate the new price
+        const newPrice = orderState.totalPrice + menuState.ingredients[index].price;
+    
+        // Update the order state with the new price and updated toppings array
+        setOrderState({
+          totalPrice: newPrice,
+          chosenIngredients: orderIngredients
+        });
       }
-      
+  
+      console.log(orderState);
 
       return (
         <Grid divided='vertically' stackable>
@@ -39,8 +60,8 @@ const Smoothie = (props) => {
             </Grid.Row>
             <Grid.Row>
             <Order 
-   menu={menuState.toppings}
-   toppingAdded={addToppingHandler}
+   menu={menuState.ingredients}
+   ingredientAdded={addIngredientHandler}
   />
             </Grid.Row>
       </Grid>
