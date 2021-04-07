@@ -1,3 +1,6 @@
+body{
+    background-color: rgb(218, 252, 241);
+}
 .ui.container{
     margin: 5em;
 }
