@@ -11,8 +11,17 @@ const Checkout = (props) => {
         Step 2: Check out 
     </Header>
 
-    <OrderSummary />
-    <OrderModal />
+    <OrderSummary 
+    menu = {props.menu}
+    ingredients = {props.ingredients}
+    price = {props.price}
+  />
+  <OrderModal 
+    menu = {props.menu}
+    ingredients = {props.ingredients}
+    price = {props.price}
+    checkout = {props.checkout}
+  />
 </Grid.Column>
   )
 };

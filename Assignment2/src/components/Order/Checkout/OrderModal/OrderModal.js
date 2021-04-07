@@ -18,16 +18,20 @@ const OrderModal = (props) => {
             <Modal.Header>Confirm your choices:</Modal.Header>
             <Modal.Content>
 
-              <OrderSummary />
+            <OrderSummary
+    menu = {props.menu}
+    ingredients = {props.ingredients}
+    price = {props.price}
+  />
 
             </Modal.Content>
             <Modal.Actions>
               <Button color='red' onClick={() => setOpen(false)}>
                   Go Back
               </Button>
-              <Button color='green' onClick={() => setOpen(false)}>
-                  Check out
-              </Button>
+              <Button color='green' onClick={ () => { props.checkout(); setOpen(false); } }>
+      Check out
+  </Button>
             </Modal.Actions>
       </Modal>
     )

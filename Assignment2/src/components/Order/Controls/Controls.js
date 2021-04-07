@@ -14,7 +14,9 @@ const Controls = (props) => {
                 key={ingredients.id}
                 alt={ingredients.alt}
                 added={() => props.ingredientAdded(ingredients.id)}
-            />
+                removed={() => props.ingredientRemoved(ingredients.id)}
+
+                />
             })}
         </Grid>
     </Grid.Column>

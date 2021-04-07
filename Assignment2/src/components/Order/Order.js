@@ -9,8 +9,14 @@ const Order = (props) => {
         <Controls 
     menu={props.menu}
     ingredientAdded = {props.ingredientAdded}
+    ingredientRemoved = {props.ingredientRemoved}
   />
-        <Checkout />
+         <Checkout 
+    menu = {props.menu}
+    ingredients={props.chosenIngredients}
+    price={props.totalPrice}
+    checkout={props.checkout}
+  />
     </Grid.Row>
   )
 };

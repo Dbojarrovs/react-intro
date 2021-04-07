@@ -1,27 +1,25 @@
 import Menu from '../../components/Menu/Menu';
-import React, {useState} from 'react';
+import React, { useState, useEffect } from "react";
 import { Grid } from 'semantic-ui-react';
 import Order from '../../components/Order/Order';
+import axios from '../../axios-orders';
 
 const orderIngredients = [];
 
 const Smoothie = (props) => {
 
-    const [menuState, setMenuState] = useState({
-      ingredients: [
-          { id: 0, name: 'cherry', price: .75, image: 'images/smoothie/cherry.jpg', alt: 'Cherry' },
-          { id: 1, name: 'apple', price: .75, image: 'images/smoothie/apple.jpg', alt: 'Apple' },
-          { id: 2, name: 'banana', price: .5, image: 'images/smoothie/banana.jpg', alt: 'Banana' },
-          { id: 3, name: 'blueberry', price: .5, image: 'images/smoothie/blueberry.jpg', alt: 'Blueberry' },
-          { id: 4, name: 'kiwi', price: .5, image: 'images/smoothie/kiwi.jpg', alt: 'Kiwi' },
-          { id: 5, name: 'orange', price: .5, image: 'images/smoothie/orange.jpg', alt: 'Orange' },
-          { id: 6, name: 'strawberry', price: .75, image: 'images/smoothie/strawberry.jpg', alt: 'Strawberry' },
-          { id: 7, name: 'watermelon', price: .5, image: 'images/smoothie/watermelon.jpg', alt: 'Watermelon' },
-          { id: 8, name: 'coconut', price: .75, image: 'images/smoothie/coconut.jpg', alt: 'Coconut' },
-          { id: 9, name: 'melon', price: .5, image: 'images/smoothie/melon.jpg', alt: 'Melon' }
-         
-        ]
-      });
+  const [menuState, setMenuState] = useState({
+    ingredients: [],
+    error: false
+  });
+
+  useEffect(() => {
+    axios.get('/ingredients.json')
+    .then(response => {
+      setMenuState({ingredients: response.data});
+      console.log(response);
+    });
+}, [])
 
       const [orderState, setOrderState] = useState({
         totalPrice: 5, 
@@ -51,17 +49,52 @@ const Smoothie = (props) => {
         });
       }
   
-      console.log(orderState);
+      
+
+      const removeIngredientHandler = (id) => {
+        // Find topping with matching id from the orderState
+    const index = orderState.chosenIngredients.findIndex(ingredient => ingredient.id === id);
+
+    // Get the current price
+    let price = orderState.totalPrice; 
+
+    // If topping was found, update the price and then remove it
+    if(index >= 0){
+      price = price - orderState.chosenIngredients[index].price;
+      orderIngredients.splice(index, 1);
+    }
+
+    // Update order state with updated price and updated toppings array
+    setOrderState({
+      totalPrice: price,
+      chosenIngredients: orderIngredients
+    });
+  }
+
+ 
+
+  const checkoutHandler = () => {
+    axios.post('/orders.json', orderState)
+    .then(response => {
+        alert('Order saved!');
+        console.log(response);
+    });
+}
 
       return (
         <Grid divided='vertically' stackable>
             <Grid.Row centered>
             <Menu menu={menuState.ingredients} />
+            
             </Grid.Row>
             <Grid.Row>
             <Order 
    menu={menuState.ingredients}
    ingredientAdded={addIngredientHandler}
+   ingredientRemoved={removeIngredientHandler}
+   chosenIngredients={orderState.chosenIngredients}
+    totalPrice={orderState.totalPrice}
+    checkout={checkoutHandler}
   />
             </Grid.Row>
       </Grid>
