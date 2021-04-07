@@ -1,9 +1,9 @@
 .ui.container{
-    margin: 2em;
+    margin: 5em;
 }
 
-.ui.red.segment{
-    margin-top: 1em;
+.ui.green.segment{
+    margin-top: 2em;
 }
 
 p{

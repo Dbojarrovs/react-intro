@@ -7,19 +7,19 @@ const Menu = (props) => {
 
     <Grid.Column width={12}>
 
-        <Segment color='red'>
-            <Header as='h2' textAlign='center' color='red'>
-                Pizza Pal Menu
+        <Segment color='green'>
+            <Header as='h2' textAlign='center' color='green'>
+                Smoothie Ingredients 
             </Header>
         </Segment>
 
         <Grid>
-            {props.menu.map((toppings, index) => {
+            {props.menu.map((ingredients, index) => {
             return <MenuItem 
-                key={toppings.id}
-                image={toppings.image}
-                alt={toppings.alt}
-                price={toppings.price}
+                key={ingredients.id}
+                image={ingredients.image}
+                alt={ingredients.alt}
+                price={ingredients.price}
             />
             })}
         </Grid>

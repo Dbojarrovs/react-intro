@@ -5,19 +5,19 @@ import Control from './Control/Control';
 const Controls = (props) => {
   return (
     <Grid.Column width={8}>
-        <Header as='h2' textAlign='center' className='step'>
-            Step 1: Choose your Ingridients
+        <Header as='h2' textAlign='center' className='step' color="green">
+            Step 1: Choose your Ingredients
         </Header>
         <Grid>
-            {props.menu.map((toppings, index) => {
+            {props.menu.map((ingredients, index) => {
             return <Control 
-                key={toppings.id}
-                alt={toppings.alt}
-                added={() => props.toppingAdded(toppings.id)}
-                removed={() => props.toppingRemoved(toppings.id)}
+                key={ingredients.id}
+                alt={ingredients.alt}
+                added={() => props.toppingAdded(ingredients.id)}
             />
             })}
         </Grid>
+        
     </Grid.Column>
   )
 };
