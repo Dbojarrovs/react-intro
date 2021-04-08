@@ -7,7 +7,7 @@ const Nav = (props) => {
   return (
     <Menu color='green' stackable inverted>
     <Menu.Item>
-      <img src='images/smoothie.png' alt='Smoothie Logo' />
+      <img src='images/smoothie.png' alt='Smoothie Logo' size='large'/>
     </Menu.Item>
 
     <Menu.Item as={NavLink} to="/" exact>

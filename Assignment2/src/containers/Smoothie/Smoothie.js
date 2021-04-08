@@ -27,7 +27,7 @@ const Smoothie = (props) => {
 
 
       const [orderState, setOrderState] = useState({
-        totalPrice: 5, 
+        totalPrice: 3, 
         chosenIngredients: []
       });
 
@@ -125,7 +125,7 @@ const Smoothie = (props) => {
         alert('Order saved!');
    // set order state and orderToppings back to starting values
    setOrderState({
-    totalPrice: 5,
+    totalPrice: 3,
     chosenIngredients: []
   });
   orderIngredients=[];

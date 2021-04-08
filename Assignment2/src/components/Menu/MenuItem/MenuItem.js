@@ -7,7 +7,7 @@ const MenuItem = (props) => {
     <div>
       <Grid.Column mobile={4} computer={2} textAlign='center'>
         <Image src={props.image} alt={props.alt} size='tiny' centered />
-        <Label pointing>&euro; {props.price.toFixed(2)} </Label>
+        <Label tag>&euro; {props.price.toFixed(2)} </Label>
     </Grid.Column>
     </div>
   )
