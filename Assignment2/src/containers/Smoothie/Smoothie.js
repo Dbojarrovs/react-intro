@@ -5,7 +5,7 @@ import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
 import { v4 as uuidv4 } from 'uuid';
 
-const orderIngredients = [];
+let orderIngredients = [];
 
 const Smoothie = (props) => {
 
@@ -128,6 +128,7 @@ const Smoothie = (props) => {
     totalPrice: 3,
     chosenIngredients: []
   });
+  
   orderIngredients=[];
 })
     .catch(error => {
