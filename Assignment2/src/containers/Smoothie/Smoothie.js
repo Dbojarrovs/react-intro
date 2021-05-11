@@ -1,11 +1,11 @@
-import Menu from '../../components/Menu/Menu';
 import React, { useState, useEffect } from "react";
 import { Grid, Message } from 'semantic-ui-react';
+
+import Menu from '../../components/Menu/Menu';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
-import { v4 as uuidv4 } from 'uuid';
 
-let orderIngredients = [];
+
 
 const Smoothie = (props) => {
 
@@ -32,70 +32,71 @@ const [orderState, setOrderState] = useState({
     props.location.state.order.totalPrice : 3, 
   chosenIngredients: 
     props.location.state ? 
-    props.location.state.order.chosenIngredients: orderIngredients
+    props.location.state.order.chosenIngredients: []
 });  
 
-if (props.location.state) {
-  orderIngredients = props.location.state.order.chosenIngredients;
-}
+window.history.replaceState('/', undefined);
 
 
       const addIngredientHandler = (id) => {
-        const index = menuState.ingredients.findIndex(ingredient => ingredient.id === id);
+        let order = {...orderState};
+
+        const menuIndex = menuState.ingredients.findIndex(ingredient => ingredient.id === id);
     
         // check if the topping has already been added to the orderToppings array
-    const orderIndex = orderIngredients.findIndex(ingredient => ingredient.id === id);
+    const orderIndex = order.chosenIngredients.findIndex(ingredient => ingredient.id === id);
          // if so, increase its count by 1
     if (orderIndex > -1){
-      orderIngredients[orderIndex].count++;
+      order.chosenIngredients[orderIndex].count++;
     }
     // otherwise (i.e. this topping is being added for the first time)
     // create this topping and add it to the order toppings array
     else{
         // Save the name and price of the chosen topping
         const chosenIngredient = {
-          id: menuState.ingredients[index].id,
-          name: menuState.ingredients[index].alt,
-          price: menuState.ingredients[index].price,
+          id: menuState.ingredients[menuIndex].id,
+          name: menuState.ingredients[menuIndex].alt,
+          price: menuState.ingredients[menuIndex].price,
           count: 1
         };
-        orderIngredients.push(chosenIngredient);
+        order.chosenIngredients.push(chosenIngredient);
       }
        
         // Calculate the new price
-        const newPrice = orderState.totalPrice + menuState.ingredients[index].price;
+        const newPrice = orderState.totalPrice + menuState.ingredients[menuIndex].price;
     
         // Update the order state with the new price and updated toppings array
         setOrderState({
           totalPrice: newPrice,
-          chosenIngredients: orderIngredients
+          chosenIngredients: order.chosenIngredients
         });
       }
   
       
 
       const removeIngredientHandler = (id) => {
+        let order = {...orderState};
         // Find topping with matching id from the orderState
-    const index = orderState.chosenIngredients.findIndex(ingredient => ingredient.id === id);
+    const index = order.chosenIngredients.findIndex(ingredient => ingredient.id === id);
 
     // Get the current price
-    let price = orderState.totalPrice; 
+    let price = order.totalPrice; 
 
     // If topping was found, update the price and then remove it
     if(index >= 0){
-      price = price - orderIngredients[index].price;
-      orderIngredients[index].count--;
+      price = price - order.chosenIngredients[index].price;
+      order.chosenIngredients[index].count--;
     
 
      // If the count is now 0, remove the topping completely
-     if(orderIngredients[index].count < 1){
-      orderIngredients.splice(index, 1);
+     if(order.chosenIngredients[index].count < 1){
+      order.chosenIngredients.splice(index, 1);
     }
       }
     // Update order state with updated price and updated toppings array
     setOrderState({
       totalPrice: price,
-      chosenIngredients: orderIngredients
+      chosenIngredients: order.chosenIngredients
     });
   }
 
@@ -109,49 +110,7 @@ if (props.location.state) {
         menu: menuState.ingredients
       }
     });
-    //  // get order from orderState
-    //  let order = orderState;
-
-    //  // add unique id
-    //  order.id = uuidv4();
-
-    //  // create formatted date
-    //  let orderDate = new Date();
-
-    //  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    //  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-    //  let dayNum = orderDate.getDay();
-    //  let day = days[dayNum];
-
-    //  let monthNum = orderDate.getMonth();
-    //  let month = months[monthNum];
-
-    //  let date = orderDate.getDate();
-    //  let year = orderDate.getFullYear();
-
-    //  // saves date in the format "Fri 19 Mar 2021"
-    //  let formattedDate = day + " " + date + " " + month + " " + year;
-
-    //  // add formattedDate to order
-    //  order.date = formattedDate;
-
-//    axios.post('/orders.json', order)
-//     .then(response => {
-//         alert('Order saved!');
-//    // set order state and orderToppings back to starting values
-//    setOrderState({
-//     totalPrice: 3,
-//     chosenIngredients: []
-//   });
-  
-//   orderIngredients=[];
-// })
-//     .catch(error => {
-//       setMenuState({ingredients: menuState.ingredients, error: true});
-//       alert('Something went wrong :(');
-//       console.log(error);
-//       });
+   
 }
 
 let smoothieMenu = menuState.error ? <Message><p>Smoothie App menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;
