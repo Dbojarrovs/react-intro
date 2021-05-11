@@ -26,10 +26,19 @@ const Smoothie = (props) => {
 }, [])
 
 
-      const [orderState, setOrderState] = useState({
-        totalPrice: 3, 
-        chosenIngredients: []
-      });
+const [orderState, setOrderState] = useState({
+  totalPrice: 
+    props.location.state ? 
+    props.location.state.order.totalPrice : 3, 
+  chosenIngredients: 
+    props.location.state ? 
+    props.location.state.order.chosenIngredients: orderIngredients
+});  
+
+if (props.location.state) {
+  orderIngredients = props.location.state.order.chosenIngredients;
+}
+
 
       const addIngredientHandler = (id) => {
         const index = menuState.ingredients.findIndex(ingredient => ingredient.id === id);
@@ -93,49 +102,56 @@ const Smoothie = (props) => {
  
 
   const checkoutHandler = () => {
-     // get order from orderState
-     let order = orderState;
+    props.history.push({
+      pathname: 'place-order', 
+      state: {
+        order: orderState, 
+        menu: menuState.ingredients
+      }
+    });
+    //  // get order from orderState
+    //  let order = orderState;
 
-     // add unique id
-     order.id = uuidv4();
+    //  // add unique id
+    //  order.id = uuidv4();
 
-     // create formatted date
-     let orderDate = new Date();
+    //  // create formatted date
+    //  let orderDate = new Date();
 
-     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    //  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    //  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-     let dayNum = orderDate.getDay();
-     let day = days[dayNum];
+    //  let dayNum = orderDate.getDay();
+    //  let day = days[dayNum];
 
-     let monthNum = orderDate.getMonth();
-     let month = months[monthNum];
+    //  let monthNum = orderDate.getMonth();
+    //  let month = months[monthNum];
 
-     let date = orderDate.getDate();
-     let year = orderDate.getFullYear();
+    //  let date = orderDate.getDate();
+    //  let year = orderDate.getFullYear();
 
-     // saves date in the format "Fri 19 Mar 2021"
-     let formattedDate = day + " " + date + " " + month + " " + year;
+    //  // saves date in the format "Fri 19 Mar 2021"
+    //  let formattedDate = day + " " + date + " " + month + " " + year;
 
-     // add formattedDate to order
-     order.date = formattedDate;
+    //  // add formattedDate to order
+    //  order.date = formattedDate;
 
-    axios.post('/orders.json', order)
-    .then(response => {
-        alert('Order saved!');
-   // set order state and orderToppings back to starting values
-   setOrderState({
-    totalPrice: 3,
-    chosenIngredients: []
-  });
+//    axios.post('/orders.json', order)
+//     .then(response => {
+//         alert('Order saved!');
+//    // set order state and orderToppings back to starting values
+//    setOrderState({
+//     totalPrice: 3,
+//     chosenIngredients: []
+//   });
   
-  orderIngredients=[];
-})
-    .catch(error => {
-      setMenuState({ingredients: menuState.ingredients, error: true});
-      alert('Something went wrong :(');
-      console.log(error);
-      });
+//   orderIngredients=[];
+// })
+//     .catch(error => {
+//       setMenuState({ingredients: menuState.ingredients, error: true});
+//       alert('Something went wrong :(');
+//       console.log(error);
+//       });
 }
 
 let smoothieMenu = menuState.error ? <Message><p>Smoothie App menu can't be loaded!</p></Message> : <Message><p>Menu loading...</p></Message>;

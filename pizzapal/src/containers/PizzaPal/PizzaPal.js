@@ -94,7 +94,7 @@ const PizzaPal = (props) => {
       console.log(orderState);
 
       const checkoutHandler = () => {
-
+        props.history.push('/place-order');
         // get order from orderState
         let order = orderState;
   
@@ -137,7 +137,7 @@ const PizzaPal = (props) => {
           alert('Something went wrong :(');
           console.log(error);
           });
-    }
+     }
 
    
     

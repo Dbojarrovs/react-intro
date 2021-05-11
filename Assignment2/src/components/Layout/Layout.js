@@ -8,7 +8,7 @@ import {Route} from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import Smoothie from '../../containers/Smoothie/Smoothie';
 import YourOrders from '../../containers/YourOrders/YourOrders';
-
+import PlaceOrder from '../../containers/PlaceOrder/PlaceOrder';
 
 const Layout = (props) => {
   return (
@@ -16,6 +16,7 @@ const Layout = (props) => {
       <Nav />
       <Route path="/" exact component={Smoothie} />
     <Route path="/orders" component={YourOrders} />
+    <Route path="/place-order" component={PlaceOrder} />
     </Container>
   )
 };
