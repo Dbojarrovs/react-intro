@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const toppingSchema = new Schema({
+const ingredientSchema = new Schema({
     id: { type: Number, required: true },
     name: { type: String, required: true },
     price: { type: Number, required: true },
@@ -10,4 +10,4 @@ const toppingSchema = new Schema({
     alt: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Topping', toppingSchema);
+module.exports = mongoose.model('Ingredient', ingredientSchema);

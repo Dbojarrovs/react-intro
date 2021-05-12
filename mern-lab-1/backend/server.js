@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -22,4 +23,11 @@ app.use((error, request, response, next) => {
   response.json({message: error.message || 'An unknown error occurred!'});
 });
 
-app.listen(5000);
+mongoose
+  .connect()
+  .then(() => {
+    app.listen(5000);
+  })
+  .catch(err => {
+    console.log(err);
+  });

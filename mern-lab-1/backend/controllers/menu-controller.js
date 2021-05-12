@@ -1,87 +1,21 @@
 const HttpError = require('../utils/http-error');
-let ingredients = [
-  {
-        "id": 0,
-        "name": "cherry",
-        "price": 1.25,
-        "image": "images/smoothie/cherry.jpg",
-        "alt": "Cherry"
-      },
-      {
-        "id": 1,
-        "name": "apple",
-        "price": 0.75,
-        "image": "images/smoothie/apple.jpg",
-        "alt": "Apple"
-      },
-      {
-        "id": 2,
-        "name": "melon",
-        "price": 0.5,
-        "image": "images/smoothie/melon.jpg",
-        "alt": "Melon"
-      },
-      {
-        "id": 3,
-        "name": "watermelon",
-        "price": 1,
-        "image": "images/smoothie/watermelon.jpg",
-        "alt": "Watermelon"
-      },
-      {
-        "id": 4,
-        "name": "blueberry",
-        "price": 0.5,
-        "image": "images/smoothie/blueberry.jpg",
-        "alt": "Blueberry"
-      },
-      {
-        "id": 5,
-        "name": "banana",
-        "price": 0.5,
-        "image": "images/smoothie/banana.jpg",
-        "alt": "Banana"
-      },
-      {
-        "id": 6,
-        "name": "coconut",
-        "price": 1.25,
-        "image": "images/smoothie/coconut.jpg",
-        "alt": "Coconut"
-      },
-      {
-        "id": 7,
-        "name": "kiwi",
-        "price": 0.5,
-        "image": "images/smoothie/kiwi.jpg",
-        "alt": "Kiwi"
-      },
-      {
-        "id": 8,
-        "name": "orange",
-        "price": 0.75,
-        "image": "images/smoothie/orange.jpg",
-        "alt": "Orange"
-      },
-      {
-        "id": 9,
-        "name": "strawberry",
-        "price": 0.75,
-        "image": "images/smoothie/strawberry.jpg",
-        "alt": "Strawberry"
-      },
-      
-];
+const Ingredient = require('../models/ingredient');
+const { response } = require('express');
 
 const menuController = {
-  getMenu(request, response) {
-    const menu = ingredients;
 
-    if (!menu || menu.length === 0) {
-      throw new HttpError('Could not load the menu.', 404);
+  async getMenu(request, response, next) {
+    let ingredients;
+    try {
+      ingredients = await Ingredient.find({});
+    } catch (err) {
+      const error = new HttpError(
+        'Fetching menu ingredients failed, please try again later.',
+        500
+      );
+      return next(error);
     }
-
-    response.json({ menu }); 
+    response.json({ingredients});
   }
 
 };
