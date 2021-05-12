@@ -208,9 +208,6 @@ const cancelHandler = () => {
         // get order from orderState
          let order = orderState;
 
-         // add unique id
-         order.id = uuidv4();
-
          // create formatted date
          let orderDate = new Date();
 
@@ -235,7 +232,7 @@ const cancelHandler = () => {
          // add customer details to order
          order.details = customerState.details;
 
-         axios.post('/orders.json', order)
+         axios.post('/checkout', order)
          .then(response => {
            props.history.push('/order-success');
          })

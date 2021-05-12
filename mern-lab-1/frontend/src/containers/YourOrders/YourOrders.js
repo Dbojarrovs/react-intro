@@ -14,27 +14,21 @@ const YourOrders = (props) => {
       });
 
       useEffect(() => {
-        axios.get('/orders.json')
+        axios.get('/orders')
         .then(response => {
-          // get orders from firebase (returns an object)
-          let ordersObject = response.data;
-    
-          // create an empty array
-          let ordersArray = []; 
-    
-          // store each order object in the ordersArray
-          for (let i in ordersObject){
-            ordersArray.push(ordersObject[i]);
-          }
-    
-          // update the state
-          setPastOrdersState({orders: ordersArray, ordersLoaded: true, error: false});
+          setPastOrdersState({
+              orders: response.data.orders, 
+              ordersLoaded: true, 
+              error: false});
         })
         .catch(error => {
-          setPastOrdersState({orders: pastOrdersState.orders, ordersLoaded: pastOrdersState.ordersLoaded, error: true});
+          setPastOrdersState({
+              orders: pastOrdersState.orders, 
+              ordersLoaded: pastOrdersState.ordersLoaded, 
+              error: true});
           console.log(pastOrdersState.error, error);
         });
-      }, [])  
+      }, []) 
 
     console.log(pastOrdersState.orders);
     
