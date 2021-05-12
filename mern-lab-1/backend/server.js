@@ -1,10 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const routes = require('./routes');
 const HttpError = require('./utils/http-error');
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use('/api', routes); 
 
 app.use((request, response, next) => {

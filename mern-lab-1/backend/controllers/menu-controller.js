@@ -1,33 +1,89 @@
 const HttpError = require('../utils/http-error');
+let ingredients = [
+  {
+        "id": 0,
+        "name": "cherry",
+        "price": 1.25,
+        "image": "images/smoothie/cherry.jpg",
+        "alt": "Cherry"
+      },
+      {
+        "id": 1,
+        "name": "apple",
+        "price": 0.75,
+        "image": "images/smoothie/apple.jpg",
+        "alt": "Apple"
+      },
+      {
+        "id": 2,
+        "name": "melon",
+        "price": 0.5,
+        "image": "images/smoothie/melon.jpg",
+        "alt": "Melon"
+      },
+      {
+        "id": 3,
+        "name": "watermelon",
+        "price": 1,
+        "image": "images/smoothie/watermelon.jpg",
+        "alt": "Watermelon"
+      },
+      {
+        "id": 4,
+        "name": "blueberry",
+        "price": 0.5,
+        "image": "images/smoothie/blueberry.jpg",
+        "alt": "Blueberry"
+      },
+      {
+        "id": 5,
+        "name": "banana",
+        "price": 0.5,
+        "image": "images/smoothie/banana.jpg",
+        "alt": "Banana"
+      },
+      {
+        "id": 6,
+        "name": "coconut",
+        "price": 1.25,
+        "image": "images/smoothie/coconut.jpg",
+        "alt": "Coconut"
+      },
+      {
+        "id": 7,
+        "name": "kiwi",
+        "price": 0.5,
+        "image": "images/smoothie/kiwi.jpg",
+        "alt": "Kiwi"
+      },
+      {
+        "id": 8,
+        "name": "orange",
+        "price": 0.75,
+        "image": "images/smoothie/orange.jpg",
+        "alt": "Orange"
+      },
+      {
+        "id": 9,
+        "name": "strawberry",
+        "price": 0.75,
+        "image": "images/smoothie/strawberry.jpg",
+        "alt": "Strawberry"
+      },
+      
+];
 
-let TEST_MENU = [
-    { id: 0, name: 'mozzarella', price: .75, image: 'images/toppings/mozzarella.jpg', alt: 'Mozzarella' },
-    { id: 1, name: 'cheddar', price: .75, image: 'images/toppings/cheddar.jpg', alt: 'Cheddar' },
-    { id: 2, name: 'basil', price: .5, image: 'images/toppings/basil.jpg', alt: 'Basil' },
-    { id: 3, name: 'tomato', price: .5, image: 'images/toppings/tomato.jpg', alt: 'Tomato' },
-    { id: 4, name: 'olives', price: .5, image: 'images/toppings/olives.jpg', alt: 'Olives' },
-    { id: 5, name: 'onion', price: .5, image: 'images/toppings/onion.jpg', alt: 'Onion' },
-    { id: 6, name: 'pineapple', price: .5, image: 'images/toppings/pineapple.jpg', alt: 'Pineapple' },
-    { id: 7, name: 'mushroom', price: .5, image: 'images/toppings/mushroom.jpg', alt: 'Mushroom' },
-    { id: 8, name: 'pepper', price: .5, image: 'images/toppings/pepper.jpg', alt: 'Pepper' },
-    { id: 9, name: 'chili', price: .5, image: 'images/toppings/chili.jpg', alt: 'Chili' },
-    { id: 10, name: 'jalapeno', price: .5, image: 'images/toppings/jalapeno.jpg', alt: 'Jalapeno' },
-    { id: 11, name: 'bacon', price: 1, image: 'images/toppings/bacon.jpg', alt: 'Bacon' },
-    { id: 12, name: 'ham', price: 1, image: 'images/toppings/ham.jpg', alt: 'Ham' },
-    { id: 13, name: 'salami', price: 1, image: 'images/toppings/salami.jpg', alt: 'Salami' },
-    { id: 14, name: 'bbq', price: .75, image: 'images/toppings/bbq.jpg', alt: 'BBQ Sauce' },
-    { id: 15, name: 'hot', price: .75, image: 'images/toppings/hot.jpg', alt: 'Hot Sauce' },
-  ];
 const menuController = {
-    getMenu(request, response) {
-        const menu = TEST_MENU;
-    
-        if (!menu || menu.length === 0) {
-          throw new HttpError('Could not load the menu.', 404);
-        }
-    
-        response.json({ menu }); 
-      }
+  getMenu(request, response) {
+    const menu = ingredients;
+
+    if (!menu || menu.length === 0) {
+      throw new HttpError('Could not load the menu.', 404);
+    }
+
+    response.json({ menu }); 
+  }
+
 };
 
 module.exports = menuController;
