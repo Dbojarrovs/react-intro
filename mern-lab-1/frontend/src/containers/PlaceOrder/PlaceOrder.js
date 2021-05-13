@@ -4,6 +4,7 @@ import OrderSummary from "../../components/Order/Checkout/OrderSummary/OrderSumm
 import { withRouter } from 'react-router-dom';
 import axios from '../../axios-orders';
 import { v4 as uuidv4 } from 'uuid';
+import ErrorModal from '../../components/feedback/ErrorModal';
 
  
 
@@ -13,7 +14,18 @@ const PlaceOrder = (props) => {
         chosenIngredients: props.location.state.order.chosenIngredients
       }); 
    
-     
+      const [errorState, setErrorState] = useState({
+        error: false, 
+        errorMessage: null
+    });
+  
+    const errorHandler = () => {
+        setErrorState({
+            error: false, 
+            errorMessage: null
+        });
+    };
+
 const cancelHandler = () => {
         props.history.push({
             pathname: '/', 
@@ -237,83 +249,107 @@ const cancelHandler = () => {
            props.history.push('/order-success');
          })
          .catch(error => {
-           alert('Something went wrong :(');
            console.log(error);
-           });
+
+           let errorMsg = '';
+           if (error.response) {
+               errorMsg = error.response.data.message;
+           } else {
+               errorMsg = 'There was a problem creating your order';
+           }
+           setErrorState({error: true, errorMessage: errorMsg});
+       });
+           
      }
+
      let disabled = !validationState.formValid;
 
-    return (
-    <div>
-      <Grid>
-        <Grid.Row columns={2}>
+    // DISPLAY ERROR MODAL
 
-            <Grid.Column width={6}>
-                <Segment color='red'>
-                    <Header as='h2' textAlign='center' color='red'>
-                        Confirm your order:
-                    </Header>
-                    <OrderSummary 
-        menu = {props.location.state.menu}
-        ingredients = {orderState.chosenIngredients}
-        price = {orderState.totalPrice}
-    />  
-     <Button color="red" onClick={cancelHandler}>Go Back</Button>
-                </Segment>
-            </Grid.Column>
+    let orderForm = null;
 
-            <Grid.Column width={10}>
-                <Segment color='red'>
+    if (errorState.error){
+    orderForm = <ErrorModal error={errorState.errorMessage} onClear={errorHandler} />;
+    }
+    else{
+        orderForm = (
+        <Grid>
+            <Grid.Row columns={2}>
+
+                <Grid.Column width={6}>
+                    <Segment color='red'>
                         <Header as='h2' textAlign='center' color='red'>
-                            Enter your details:
+                            Confirm your order:
                         </Header>
-                        <Form>
-                        <Form.Input
-        error={messageState.name}
-        required
-        label='Name'
-        placeholder='Name'
-        id='form-input-name'
-        onChange={(event) => formChangedHandler(event, 'form-input-name', 'input')}
-    />
-    <Form.Input
-        error={messageState.phone}
-        required
-        label='Phone'
-        placeholder='Phone'
-        id='form-input-phone'
-        onChange={(event) => formChangedHandler(event, 'form-input-phone', 'input')}
-    />
-    <Form.Field
-        control={Select}
-        required
-        error={messageState.method}
-        label='Delivery method'
-        options={[
-            { key: 'c', text: 'Collection', value: 'collection' },
-            { key: 'd', text: 'Delivery', value: 'delivery' }
-        ]}
-        placeholder='Collection or Delivery'
-        id='form-input-method'
-        onChange={(event) => formChangedHandler(event, 'form-input-method', 'select')}
-    />
-    <Form.Input
-        error={messageState.address}
-        required={validationState.rules[3].required}
-        fluid
-        label='Address'
-        placeholder='Address'
-        id='form-input-address'
-        onChange={(event) => formChangedHandler(event, 'form-input-address', 'input')}
-    />
-<Button type='submit' color='green' disabled={disabled} onClick={checkoutHandler}>Submit</Button>
-  </Form>
+                        <OrderSummary 
+                            menu = {props.location.state.menu}
+                            toppings = {props.location.state.order.chosenToppings}
+                            price = {props.location.state.order.totalPrice}
+                        />
+                        <Button color="red" onClick={cancelHandler}>Go Back</Button>
                     </Segment>
-            </Grid.Column>
+                </Grid.Column>
 
-        </Grid.Row>
-    </Grid>
-    </div>
+                <Grid.Column width={10}>
+                    <Segment color='red'>
+                            <Header as='h2' textAlign='center' color='red'>
+                                Enter your details:
+                            </Header>
+                            <Form id="form">
+                                <Form.Input
+                                    error={messageState.name}
+                                    required
+                                    label='Name'
+                                    placeholder='Name'
+                                    id='form-input-name'
+                                    onChange={(event) => formChangedHandler(event, 'form-input-name', 'input')}
+                                />
+                                <Form.Input
+                                    error={messageState.phone}
+                                    required
+                                    label='Phone'
+                                    placeholder='Phone e.g. 086-1234567'
+                                    id='form-input-phone'
+                                    onChange={(event) => formChangedHandler(event, 'form-input-phone', 'input')}
+                                />
+                                <Form.Field
+                                    control={Select}
+                                    required
+                                    error={messageState.method}
+                                    label='Delivery method'
+                                    options={[
+                                        { key: 'c', text: 'Collection', value: 'collection' },
+                                        { key: 'd', text: 'Delivery', value: 'delivery' }
+                                    ]}
+                                    placeholder='Collection or Delivery'
+                                    id='form-input-method'
+                                    onChange={(event) => formChangedHandler(event, 'form-input-method', 'select')}
+                                />
+                                <Form.Input
+                                    error={messageState.address}
+                                    required={validationState.rules[3].required}
+                                    fluid
+                                    label='Address'
+                                    placeholder='Address'
+                                    id='form-input-address'
+                                    onChange={(event) => formChangedHandler(event, 'form-input-address', 'input')}
+                                />
+                                <Button type='submit' color='green' disabled={disabled} onClick={checkoutHandler}>Submit</Button>
+                            </Form>
+                        </Segment>
+                </Grid.Column>
+
+            </Grid.Row>
+        </Grid>
+        );
+    }
+
+  // DISPLAY ORDER SUMMARY AND FORM
+
+  return (
+    <React.Fragment>
+        {orderForm}
+    </React.Fragment>
   )
 };
 
