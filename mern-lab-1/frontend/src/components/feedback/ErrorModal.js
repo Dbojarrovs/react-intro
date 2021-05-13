@@ -19,9 +19,12 @@ const ErrorModal = (props) => {
                 </Modal.Content>
             <Modal.Actions>
                 <Button
-                    content="Okay"
-                    onClick={ () => { props.onClear(); setOpen(false); } }
-                    color='red'
+                     content="Okay"
+                     onClick={() => {
+                       props.onClear();
+                       setOpen(false);
+                     }}
+                     color="red"
                 />
             </Modal.Actions>
         </Modal>

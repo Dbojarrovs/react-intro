@@ -11,15 +11,27 @@ const Nav = (props) => {
     </Menu.Item>
 
     <Menu.Item as={NavLink} to="/" exact>
-      Smoothie
-    </Menu.Item>
+       Smoothie
+      </Menu.Item>
 
-    <Menu.Item as={NavLink} to="/orders">
-      Your Orders
-    </Menu.Item>
+      <Menu.Item as={NavLink} to="/orders">
+        Your Orders
+      </Menu.Item>
 
-  </Menu>
-  )
+      <Menu.Item as={NavLink} to="/users/12345678">
+        Your Account
+      </Menu.Item>
+
+      <Menu.Menu position="right">
+        <Menu.Item as={NavLink} to="/authenticate">
+          Signup/Login
+        </Menu.Item>
+        <Menu.Item as={Link} to="/">
+          Log out
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  );
 };
 
 export default Nav;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Form, Header, Segment, Button } from "semantic-ui-react";
 
-import ErrorModal from "../../components/feedback/ErrorModal/ErrorModal";
+import ErrorModal from "../../components/feedback/ErrorModal";
 
 const Authenticate = (props) => {
 
