@@ -6,6 +6,9 @@ const routes = require('./routes');
 const HttpError = require('./utils/http-error');
 
 const app = express();
+
+app.use(bodyParser.json());
+
 app.use((request, response, next) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
   response.setHeader(
@@ -15,7 +18,7 @@ app.use((request, response, next) => {
   response.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE');
   next();
 });
-app.use(bodyParser.json());
+
 app.use('/api', routes); 
 
 app.use((request, response, next) => {
