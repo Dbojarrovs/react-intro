@@ -1,73 +1,86 @@
 import React, { useState, useEffect } from "react";
 import axios from '../../axios-orders';
-import { Message } from 'semantic-ui-react';
 
 import OrdersTable from '../../components/OrdersTable/OrdersTable';
 import ErrorModal from '../../components/Feedback/ErrorModal';
 import Loader from '../../components/Feedback/Loader';
 
 const YourOrders = (props) => {
+
+  // ORDER, ERROR AND LOADING STATE
+
   const [pastOrdersState, setPastOrdersState] = useState({
-    orders: []
-});
+    orders: [],
+  });
 
-const [errorState, setErrorState] = useState({
-    error: false, 
-    errorMessage: null
-});
+  const [errorState, setErrorState] = useState({
+    error: false,
+    errorMessage: null,
+  });
 
-const [loadingState, setLoadingState] = useState({
-    isLoading: true, 
+  const [loadingState, setLoadingState] = useState({
+    isLoading: true,
     ordersLoaded: false,
-    loadFailed: false
-});
-
-const errorHandler = () => {
-  setErrorState({
-    error: false, 
-    errorMessage: null
+    loadFailed: false,
   });
-  setLoadingState({
-    isLoading: loadingState.isLoading,
-    ordersLoaded: loadingState.ordersLoaded,
-    loadFailed: true
-  });
-};
 
-      useEffect(() => {
-        axios.get('/orders')
-    .then(response => {
-      setPastOrdersState({orders: response.data.orders});
-      setLoadingState({isLoading: false, ordersLoaded: true, loadFailed: loadingState.loadFailed});
-    })
-    .catch(error => {
-      setErrorState({error: true, errorMessage: error.response.data.message});
-      setLoadingState({isLoading: false, ordersLoaded: loadingState.ordersLoaded, loadFailed: loadingState.loadFailed});
-      console.log(pastOrdersState.error, error);
+  const errorHandler = () => {
+    setErrorState({
+      error: false,
+      errorMessage: null,
     });
-      }, []) 
+    setLoadingState({
+      isLoading: loadingState.isLoading,
+      ordersLoaded: loadingState.ordersLoaded,
+      loadFailed: true,
+    });
+  };
+  
+  // FETCH ORDERS
+  
+  useEffect(() => {
+    axios
+      .get('/orders')
+      .then((response) => {
+        setPastOrdersState({ orders: response.data.orders });
+        setLoadingState({
+          isLoading: false,
+          ordersLoaded: true,
+          loadFailed: loadingState.loadFailed,
+        });
+      })
+      .catch((error) => {
+        setErrorState({
+          error: true,
+          errorMessage: error.response.data.message,
+        });
+        setLoadingState({
+          isLoading: false,
+          ordersLoaded: loadingState.ordersLoaded,
+          loadFailed: loadingState.loadFailed,
+        });
+      });
+  }, []);
 
-    console.log(pastOrdersState.orders);
-    
-    let orders = 
-    errorState.error ? 
-    <ErrorModal error={errorState.errorMessage} onClear={errorHandler} /> : 
-    <Loader active={loadingState.isLoading} />;
+  // ERROR HANDLER
 
-  if (loadingState.ordersLoaded && pastOrdersState.orders.length > 0){
-    orders = <OrdersTable orders={pastOrdersState.orders} /> ;
+ 
+
+  // DISPLAY ORDERS
+
+  let orders = errorState.error ? (
+    <ErrorModal error={errorState.errorMessage} onClear={errorHandler} />
+  ) : (
+    <Loader active={loadingState.isLoading} />
+  );
+
+  if (loadingState.ordersLoaded && pastOrdersState.orders.length > 0) {
+    orders = <OrdersTable orders={pastOrdersState.orders} />;
+  } else if (loadingState.loadFailed) {
+    orders = <p>We can't load your orders... maybe try creating one?</p>;
   }
-  else if (loadingState.loadFailed) {
-    orders = <p>We can't load your orders... maybe try creating one?</p>
-  }
 
-
- return (
-    <div>
-      {orders}
-    </div>
-  )
-   
+  return <div>{orders}</div>;
 };
 
 export default YourOrders;

@@ -1,6 +1,7 @@
 const HttpError = require("../utils/http-error");
 
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 let TEST_USER = [
     {
