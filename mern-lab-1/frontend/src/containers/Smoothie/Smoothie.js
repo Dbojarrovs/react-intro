@@ -32,15 +32,19 @@ const Smoothie = (props) => {
       let sortedIngredients = response.data.ingredients.sort(function(a, b){return a.id - b.id});
         setMenuState({ingredients: sortedIngredients});
     })
-    .catch((error) => {
-      setErrorState({
-        error: true,
-        errorMessage: error.response.data.message,
-      });
-      setLoadingState({ isLoading: false, loadFailed: menuState.loadFailed });
+    .catch(error => {
+      let errorMsg = '';
+      if (error.response) {
+          errorMsg = error.response.data.message;
+      } else {
+          errorMsg = 'There was a problem loading the menu';
+      }
+
+      setErrorState({error: true, errorMessage: errorMsg});
+      setLoadingState({isLoading: false, loadFailed: menuState.loadFailed});
       console.log(error.response);
     });
-}, []);
+  }, [])
 
 
 const [orderState, setOrderState] = useState({

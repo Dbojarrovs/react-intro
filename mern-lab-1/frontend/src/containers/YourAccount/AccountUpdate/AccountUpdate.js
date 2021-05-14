@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid, Form, Header, Segment, Button } from "semantic-ui-react";
 import axios from "../../../axios-orders";
 
-import ErrorModal from "../../../components/Feedback/ErrorModal/ErrorModal";
+import ErrorModal from "../../../components/Feedback/ErrorModal";
 
 const AccountUpdate = (props) => {
 
