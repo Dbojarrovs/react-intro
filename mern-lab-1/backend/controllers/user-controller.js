@@ -1,6 +1,5 @@
 const HttpError = require("../utils/http-error");
 
-
 let TEST_USER = [
     {
         id: '12345678',
@@ -13,46 +12,14 @@ let TEST_USER = [
 
 const usersController = {
 
-    async signup(request, response, next) {
-        const { name, email, password } = request.body;
-    
-        let existingUser;
-        try {
-          existingUser = await User.findOne({ email: email });
-        } catch (err) {
-          const error = new HttpError(
-            "Signing up failed, please try again later.",
-            500
-          );
-          return next(error);
-        }
-    
-        if (existingUser) {
-          const error = new HttpError(
-            "User exists already, please login instead.",
-            422
-          );
-          return next(error);
-        }
-    
-        const createdUser = new User({
-          name,
-          email,
-          password,
-          orders: [],
+    async getUserById(request, response, next) {
+        const userId = request.params.uid;
+
+        const user = TEST_USER.find(user => {
+          return user.id === userId;
         });
-    
-        try {
-          await createdUser.save();
-        } catch (err) {
-          const error = new HttpError("Signing up failed, please try again.", 500);
-          return next(error);
-        }
-    
-        response
-          .status(201)
-          .json({ createdUser });
-      },
+        response.json({ user });
+    },
 
 };
 

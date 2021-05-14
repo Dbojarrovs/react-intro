@@ -4,7 +4,7 @@ import axios from "../../axios-orders";
 
 import Menu from "../../components/Menu/Menu";
 import Order from "../../components/Order/Order";
-import Loader from "../../components/Feedback/Loader/Loader";
+
 import ErrorModal from "../../components/Feedback/ErrorModal/ErrorModal";
 
 const PizzaPal = (props) => {

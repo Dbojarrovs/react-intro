@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Message } from 'semantic-ui-react';
+import axios from '../../axios-orders';
 
 import Menu from '../../components/Menu/Menu';
 import Order from '../../components/Order/Order';
-import axios from '../../axios-orders';
-import Loader from '../../components/Feedback/Loader/Loader';
-import ErrorModal from '../../components/Feedback/ErrorModal/ErrorModal';
+
+import Loader from '../../components/Feedback/Loader';
+import ErrorModal from '../../components/Feedback/ErrorModal';
 
 
 
@@ -31,19 +32,15 @@ const Smoothie = (props) => {
       let sortedIngredients = response.data.ingredients.sort(function(a, b){return a.id - b.id});
         setMenuState({ingredients: sortedIngredients});
     })
-    .catch(error => {
-      let errorMsg = '';
-      if (error.response) {
-          errorMsg = error.response.data.message;
-      } else {
-          errorMsg = 'There was a problem loading the menu';
-      }
-
-      setErrorState({error: true, errorMessage: errorMsg});
-      setLoadingState({isLoading: false, loadFailed: menuState.loadFailed});
+    .catch((error) => {
+      setErrorState({
+        error: true,
+        errorMessage: error.response.data.message,
+      });
+      setLoadingState({ isLoading: false, loadFailed: menuState.loadFailed });
       console.log(error.response);
     });
-}, [])
+}, []);
 
 
 const [orderState, setOrderState] = useState({
@@ -55,7 +52,6 @@ const [orderState, setOrderState] = useState({
     props.location.state.order.chosenIngredients: []
 });  
 
-window.history.replaceState('/', undefined);
 
 
       const addIngredientHandler = (id) => {
@@ -127,11 +123,11 @@ window.history.replaceState('/', undefined);
       pathname: 'place-order', 
       state: {
         order: orderState, 
-        menu: menuState.ingredients
-      }
+        menu: menuState.ingredients,
+      },
     });
    
-}
+};
 
 // ERROR HANDLER 
 
@@ -152,11 +148,11 @@ if (orderState.chosenIngredients.length > 0){
 checkoutDisabled = false;
 }
 
-let smoothieMenu =
-
-errorState.error ? 
-<ErrorModal error={errorState.errorMessage} onClear={errorHandler} /> : 
-<Loader active={loadingState.isLoading} />;
+let smoothieMenu =errorState.error ? (
+<ErrorModal error={errorState.errorMessage} onClear={errorHandler} />
+) : (
+  <Loader active={loadingState.isLoading} />
+);
 
 
 if (menuState.ingredients.length > 0) {
@@ -179,7 +175,8 @@ if (menuState.ingredients.length > 0) {
 }
 
 else if (loadingState.loadFailed) {
-  smoothieMenu = <p>We're having some issues loading the menu... Please try again later.</p>
+  smoothieMenu =(<p>We're having some issues loading the menu... Please try again later.</p>
+  );
 }
 
 

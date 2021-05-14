@@ -1,12 +1,10 @@
-
-import OrdersTable from '../../components/OrdersTable/OrdersTable';
-
 import React, { useState, useEffect } from "react";
 import axios from '../../axios-orders';
 import { Message } from 'semantic-ui-react';
-import Loader from '../../components/Feedback/Loader/Loader';
-import ErrorModal from '../../components/Feedback/ErrorModal/ErrorModal';
 
+import OrdersTable from '../../components/OrdersTable/OrdersTable';
+import ErrorModal from '../../components/Feedback/ErrorModal';
+import Loader from '../../components/Feedback/Loader';
 
 const YourOrders = (props) => {
   const [pastOrdersState, setPastOrdersState] = useState({
