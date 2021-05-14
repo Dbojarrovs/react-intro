@@ -4,7 +4,7 @@ import OrderSummary from "../../components/Order/Checkout/OrderSummary/OrderSumm
 import { withRouter } from 'react-router-dom';
 import axios from '../../axios-orders';
 import { v4 as uuidv4 } from 'uuid';
-import ErrorModal from '../../components/feedback/ErrorModal';
+import ErrorModal from '../../components/Feedback/ErrorModal/ErrorModal';
 
  
 

@@ -4,8 +4,8 @@ import OrdersTable from '../../components/OrdersTable/OrdersTable';
 import React, { useState, useEffect } from "react";
 import axios from '../../axios-orders';
 import { Message } from 'semantic-ui-react';
-import Loader from '../../components/feedback/Loader';
-import ErrorModal from '../../components/feedback/ErrorModal';
+import Loader from '../../components/Feedback/Loader/Loader';
+import ErrorModal from '../../components/Feedback/ErrorModal/ErrorModal';
 
 
 const YourOrders = (props) => {

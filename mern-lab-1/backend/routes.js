@@ -9,5 +9,6 @@ router.get('/', menuController.getMenu);
 router.post('/checkout', orderController.createOrder);
 router.get('/orders', orderController.getAllOrders);
 router.get('/users/:uid', userController.getUserById);
+router.post('/signup', userController.signup);
 
 module.exports = router;

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Grid, Header, Segment, List, Image, Button, Icon, Confirm } from "semantic-ui-react";
 import axios from "../../axios-orders";
 
-import Loader from "../../components/feedback/Loader";
-import ErrorModal from "../../components/feedback/ErrorModal";
+import Loader from "../../components/Feedback/Loader/Loader";
+import ErrorModal from "../../components/Feedback/ErrorModal/ErrorModal";
 
 const YourAccount = (props) => {
 

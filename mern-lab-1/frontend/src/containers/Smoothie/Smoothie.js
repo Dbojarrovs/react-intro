@@ -4,8 +4,8 @@ import { Grid, Message } from 'semantic-ui-react';
 import Menu from '../../components/Menu/Menu';
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
-import Loader from '../../components/feedback/Loader';
-import ErrorModal from '../../components/feedback/ErrorModal';
+import Loader from '../../components/Feedback/Loader/Loader';
+import ErrorModal from '../../components/Feedback/ErrorModal/ErrorModal';
 
 
 
