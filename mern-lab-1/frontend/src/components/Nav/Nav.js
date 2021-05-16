@@ -1,7 +1,6 @@
 import React from "react";
 import { Menu } from 'semantic-ui-react';
-import {NavLink} from 'react-router-dom';
-
+import {NavLink, Link} from 'react-router-dom';
 
 const Nav = (props) => {
   return (
@@ -26,7 +25,9 @@ const Nav = (props) => {
         <Menu.Item as={NavLink} to="/authenticate">
           Signup/Login
         </Menu.Item>
-       
+        <Menu.Item as={Link} to="/">
+          Log out
+        </Menu.Item>
       </Menu.Menu>
     </Menu>
   );

@@ -283,7 +283,7 @@ const cancelHandler = () => {
                         </Header>
                         <OrderSummary 
                             menu = {props.location.state.menu}
-                            toppings = {props.location.state.order.chosenToppings}
+                            ingredients = {props.location.state.order.chosenIngredients}
                             price = {props.location.state.order.totalPrice}
                         />
                         <Button color="red" onClick={cancelHandler}>Go Back</Button>

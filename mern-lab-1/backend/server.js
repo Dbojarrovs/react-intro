@@ -35,7 +35,7 @@ app.use((error, request, response, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://dmitrijs:RLURHQ4nt@smoothie.rmvg6.mongodb.net/Smoothie?retryWrites=true&w=majority')
+  .connect('mongodb+srv://dmitrijs:RLURHQ4nt@Smoothie.rmvg6.mongodb.net/smoothie?retryWrites=true&w=majority')
   .then(() => {
     app.listen(5000);
   })

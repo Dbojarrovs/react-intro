@@ -1,6 +1,5 @@
 const HttpError = require('../utils/http-error');
 const Ingredient = require('../models/ingredient');
-const { response } = require('express');
 
 const menuController = {
 
@@ -15,7 +14,7 @@ const menuController = {
       );
       return next(error);
     }
-    response.json({ingredients});
+    response.json({ ingredients: ingredients.map((ingredient) => ingredient.toObject()) });
   }
 
 };
