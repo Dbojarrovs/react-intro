@@ -1,6 +1,8 @@
 const HttpError = require("../utils/http-error");
 const User = require("../models/user");
 
+const User = require("../models/user");
+
 let TEST_USER = [
     {
         id: '12345678',
