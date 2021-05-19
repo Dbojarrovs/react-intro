@@ -1,8 +1,15 @@
-import React from "react";
+
 import { Menu } from 'semantic-ui-react';
 import {NavLink, Link} from 'react-router-dom';
 
+import React, { useContext } from "react";
+import AuthContext from "../../context/auth-context";
+
+
 const Nav = (props) => {
+
+  const auth = useContext(AuthContext);
+
   return (
     <Menu color='green' stackable inverted>
     <Menu.Item>
@@ -13,22 +20,33 @@ const Nav = (props) => {
        Smoothie
       </Menu.Item>
 
-      <Menu.Item as={NavLink} to="/orders">
-        Your Orders
-      </Menu.Item>
-
-      <Menu.Item as={NavLink} to="/users/12345678">
-        Your Account
-      </Menu.Item>
-
-      <Menu.Menu position="right">
-        <Menu.Item as={NavLink} to="/authenticate">
-          Signup/Login
+      {auth.isLoggedIn && (
+        <Menu.Item as={NavLink} to={`/orders/${auth.userId}`}>
+          Your Orders
         </Menu.Item>
-        <Menu.Item as={Link} to="/">
-          Log out
+      )}
+      
+  {auth.isLoggedIn && (
+        <Menu.Item as={NavLink} to={`/users/${auth.userId}`}>
+          Your Account
         </Menu.Item>
-      </Menu.Menu>
+      )}
+
+{!auth.isLoggedIn && (
+        <Menu.Menu position="right">
+          <Menu.Item as={NavLink} to="/authenticate">
+            Signup/Login
+          </Menu.Item>
+        </Menu.Menu>
+      )}
+
+      {auth.isLoggedIn && (
+        <Menu.Menu position="right">
+          <Menu.Item as={Link} to="/" onClick={auth.logout}>
+            Log out
+          </Menu.Item>
+        </Menu.Menu>
+      )}
     </Menu>
   );
 };

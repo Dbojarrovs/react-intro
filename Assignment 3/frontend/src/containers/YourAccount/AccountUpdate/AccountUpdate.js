@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Grid, Form, Header, Segment, Button } from "semantic-ui-react";
 import axios from "../../../axios-orders";
 
 import ErrorModal from "../../../components/Feedback/ErrorModal";
-
+import AuthContext from "../../../context/auth-context";
 const AccountUpdate = (props) => {
+
+  const auth = useContext(AuthContext);
 
   const [accountState, setAccountState] = useState({
     user: props.history.location.state.user,
@@ -166,12 +168,14 @@ const AccountUpdate = (props) => {
   };
 
   const updateHandler = () => {
-    let uid = "12345678";
+    let uid = auth.userId;
     let path = "/updateuser/" + uid;
     axios
-      .put(path, accountState.user)
+      .put(path, accountState.user, {
+        headers: { Authorization: "Bearer " + auth.token },
+      })
       .then((response) => {
-        props.history.push("/users/" + "12345678");
+        props.history.push("/users/" + auth.userId);
       })
       .catch((error) => {
         let errorMsg = "";

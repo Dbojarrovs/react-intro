@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
 import { Grid, Form, Header, Segment, Button } from "semantic-ui-react";
 
 import ErrorModal from "../../components/Feedback/ErrorModal";
+import AuthContext from "../../context/auth-context";
+import axios from '../../axios-orders';
+
 
 const Authenticate = (props) => {
+
+  const auth = useContext(AuthContext);
 
   const [isLoginMode, setIsLoginMode] = useState(false);
 
@@ -219,6 +225,42 @@ const Authenticate = (props) => {
     });
   };
 
+  const signupHandler = () => {
+    axios
+      .post("/signup", authDetailsState.details)
+      .then((response) => {
+        auth.login(response.data.userId, response.data.token);
+        props.history.push("/");
+      })
+      .catch((error) => {
+        let errorMsg = "";
+        if (error.response) {
+          errorMsg = error.response.data.message;
+        } else {
+          errorMsg = "Something went wrong - signup failed";
+        }
+        setErrorState({ error: true, errorMessage: errorMsg });
+      });
+  };
+
+  const loginHandler = () => {
+    axios
+      .post("/login", authDetailsState.details)
+      .then((response) => {
+        auth.login(response.data.userId, response.data.token);
+        props.history.push("/");
+      })
+      .catch((error) => {
+        let errorMsg = "";
+        if (error.response) {
+          errorMsg = error.response.data.message;
+        } else {
+          errorMsg = "Something went wrong - login failed";
+        }
+        setErrorState({ error: true, errorMessage: errorMsg });
+      });
+  };
+
   let disabled = !validationState.formValid;
 
   let signupBtnColor = "grey";
@@ -265,6 +307,7 @@ const Authenticate = (props) => {
               type="submit"
               color="green"
               disabled={disabled}
+              onClick={signupHandler}
             >
               Log In
             </Button>
@@ -315,6 +358,7 @@ const Authenticate = (props) => {
               type="submit"
               color="green"
               disabled={disabled}
+              onClick={loginHandler}
             >
               Sign Up
             </Button>

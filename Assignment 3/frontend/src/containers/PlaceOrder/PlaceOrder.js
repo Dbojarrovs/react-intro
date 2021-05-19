@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Grid, Segment, Header, Button, Form, Select } from 'semantic-ui-react';
 import OrderSummary from "../../components/Order/Checkout/OrderSummary/OrderSummary";
 import { withRouter } from 'react-router-dom';
 import axios from '../../axios-orders';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorModal from '../../components/Feedback/ErrorModal';
-
+import AuthContext from "../../context/auth-context";
  
 
 const PlaceOrder = (props) => {
+
+    const auth = useContext(AuthContext);
+
+
     const [orderState, setOrderState] = useState({
         totalPrice: props.location.state.order.totalPrice, 
         chosenIngredients: props.location.state.order.chosenIngredients
@@ -244,10 +248,14 @@ const cancelHandler = () => {
          // add customer details to order
          order.details = customerState.details;
 
-         axios.post('/checkout', order)
-         .then(response => {
-           props.history.push('/order-success');
-         })
+         order.userId = auth.userId;
+
+         axios
+      .post("/checkout", order, {
+        headers: { Authorization: "Bearer " + auth.token },
+      })
+
+      
          .catch(error => {
            console.log(error);
 
