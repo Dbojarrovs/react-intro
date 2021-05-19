@@ -78,28 +78,28 @@ const usersController = {
         .json({ createdUser });
     },
 
-    async login(request, response, next) {
-      const { email, password } = request.body;
-    
+
+      async login(request, response, next) {
+    const { email, password } = request.body;
 
     let existingUser;
 
     try {
-       existingUser = await User.findOne({ email: email });
-     } catch (err) {
-       const error = new HttpError(
-         "Logging in failed, please try again later.",
-         500
-       );
-       return next(error);
-     }
- 
-     if (!existingUser) {
-       const error = new HttpError("User not found, could not log you in.", 403);
-       return next(error);
-     }
+      existingUser = await User.findOne({ email: email });
+    } catch (err) {
+      const error = new HttpError(
+        "Logging in failed, please try again later.",
+        500
+      );
+      return next(error);
+    }
 
-     let isValidPassword = false;
+    if (!existingUser) {
+      const error = new HttpError("User not found, could not log you in.", 403);
+      return next(error);
+    }
+
+    let isValidPassword = false;
     try {
       isValidPassword = await bcrypt.compare(password, existingUser.password);
     } catch (err) {
@@ -117,8 +117,9 @@ const usersController = {
       );
       return next(error);
     }
+
     response.json({ message: "You are logged in!", userId: existingUser.id });
-    },
+  },
 
     
 };
