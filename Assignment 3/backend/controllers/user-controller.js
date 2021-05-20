@@ -45,10 +45,21 @@ const usersController = {
       return next(error);
     }
 
+    let hashedPassword;
+    try {
+      hashedPassword = await bcrypt.hash(password, 12);
+    } catch (err) {
+      const error = new HttpError(
+        "Could not create user, please try again.",
+        500
+      );
+      return next(error);
+    }
+
     const createdUser = new User({
       name,
       email,
-      password,
+      password: hashedPassword,
       orders: [],
     });
 
@@ -58,8 +69,7 @@ const usersController = {
       const error = new HttpError("Signing up failed, please try again.", 500);
       return next(error);
     }
-
-
+   
       let token;
       try {
         token = jwt.sign(

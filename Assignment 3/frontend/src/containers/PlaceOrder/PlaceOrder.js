@@ -254,8 +254,10 @@ const cancelHandler = () => {
       .post("/checkout", order, {
         headers: { Authorization: "Bearer " + auth.token },
       })
+      .then(response => {
+        props.history.push('/order-success');
+     })
 
-      
          .catch(error => {
            console.log(error);
 

@@ -307,7 +307,7 @@ const Authenticate = (props) => {
               type="submit"
               color="green"
               disabled={disabled}
-              onClick={signupHandler}
+              onClick={loginHandler}
             >
               Log In
             </Button>
@@ -358,7 +358,7 @@ const Authenticate = (props) => {
               type="submit"
               color="green"
               disabled={disabled}
-              onClick={loginHandler}
+              onClick={signupHandler}
             >
               Sign Up
             </Button>

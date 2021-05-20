@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from '../../axios-orders';
 
 import OrdersTable from '../../components/OrdersTable/OrdersTable';
 import ErrorModal from '../../components/Feedback/ErrorModal';
 import Loader from '../../components/Feedback/Loader';
+import AuthContext from "../../context/auth-context";
+
 
 const YourOrders = (props) => {
+
+  const auth = useContext(AuthContext);
 
   // ORDER, ERROR AND LOADING STATE
 
@@ -39,8 +43,9 @@ const YourOrders = (props) => {
   // FETCH ORDERS
   
   useEffect(() => {
-    axios
-      .get('/orders')
+    let uid = auth.userId;
+    let path = "/orders/" + uid;
+    axios.get(path, { headers: { Authorization: "Bearer " + auth.token } })
       .then((response) => {
         setPastOrdersState({ orders: response.data.orders });
         setLoadingState({
